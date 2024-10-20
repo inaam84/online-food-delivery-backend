@@ -21,6 +21,7 @@ Route::post('/customer/login', [CustomerAuthController::class, 'login'])
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/customer/profile', [CustomerController::class, 'profile']);
     Route::post('/customer/logout', [CustomerAuthController::class, 'logout']);
+    Route::match(['PUT', 'PATCH'], '/customer/profile/update', [CustomerController::class, 'updateProfile']);
 });
 
 /*
