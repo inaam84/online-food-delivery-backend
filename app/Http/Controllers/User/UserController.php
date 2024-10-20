@@ -4,7 +4,6 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Interfaces\UserRepositoryInterface;
-use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
@@ -15,8 +14,5 @@ class UserController extends Controller
         $this->userRepository = $userRepository;
     }
 
-    public function index()
-    {
-        
-    }
+    public function index() {}
 }
