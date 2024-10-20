@@ -118,6 +118,6 @@ class CustomerAuthController extends Controller
 
         $customer->currentAccessToken()->delete();
 
-        return response()->json('You are logged out successfully.');
+        return response()->json(['message' => 'You are logged out successfully.']);
     }
 }

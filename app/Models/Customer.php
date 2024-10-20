@@ -52,4 +52,9 @@ class Customer extends Authenticatable implements MustVerifyEmail
         'county',
         'postcode',
     ];
+
+    public function scopeWithVerifiedEmail($query, $verified = true)
+    {
+        return $verified ? $query->whereNotNull('email_verified_at') : $query->whereNull('email_verified_at');
+    }
 }
