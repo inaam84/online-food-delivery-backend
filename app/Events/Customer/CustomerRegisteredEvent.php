@@ -16,9 +16,8 @@ class CustomerRegisteredEvent
     /**
      * Create a new event instance.
      */
-    public function 
-    __construct(Customer $customer)
+    public function __construct(Customer $customer)
     {
-    $this->customer =$customer;
+        $this->customer = $customer;
     }
 }
