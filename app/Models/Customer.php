@@ -4,13 +4,13 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Customer extends Authenticatable implements MustVerifyEmail
 {
-    use HasUuids, Notifiable, HasFactory;
+    use HasFactory, HasUuids, Notifiable;
 
     protected $table = 'customers';
 
@@ -50,5 +50,4 @@ class Customer extends Authenticatable implements MustVerifyEmail
         'county',
         'postcode',
     ];
-
 }

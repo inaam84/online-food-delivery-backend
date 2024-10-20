@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class DeliveryVehicleLocation extends Model
 {
     use HasUuids;
-    
+
     protected $table = 'delivery_vehicle_locations';
 
     public function vehicle()

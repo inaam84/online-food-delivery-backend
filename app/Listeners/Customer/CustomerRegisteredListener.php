@@ -3,12 +3,8 @@
 namespace App\Listeners\Customer;
 
 use App\Events\Customer\CustomerRegistered;
-use App\Models\Customer;
 use App\Notifications\Customer\CustomerVerifyEmailNotification;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
-
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
 
 class CustomerRegisteredListener
 {
