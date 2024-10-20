@@ -3,9 +3,9 @@ content-type: application/json
 Accept: application/json
 
 {
-    "first_name": "John",
-    "surname": "Doe",
-    "email": "inaam@email.com",
+    "first_name": "Khushnood",
+    "surname": "Khan",
+    "email": "khush11@email.com",
     "landline_phone": "07415031519",
     "mobile_phone": "07415031519",
     "address_line_1": "18 Mansfield Road",

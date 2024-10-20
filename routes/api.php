@@ -10,5 +10,9 @@ Route::get('/user', function (Request $request) {
 
 Route::post('/customer/register', [CustomerAuthController::class, 'register']);
 
+Route::post('/customer/email/resend', [CustomerAuthController::class, 'resendVerificationEmail'])
+    ->name('customer.verification.resend');
+
 Route::get('customer/email/verify/{id}/{hash}', [CustomerAuthController::class, 'verify'])
+    ->middleware(['signed', 'throttle:6,1'])
     ->name('customer_verification.verify');
