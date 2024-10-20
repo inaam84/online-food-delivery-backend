@@ -48,6 +48,8 @@ return [
 
     'expiration' => null,
 
+    'customer_expiration' => 48,
+
     /*
     |--------------------------------------------------------------------------
     | Token Prefix

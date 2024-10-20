@@ -1,0 +1,8 @@
+GET http://onlinefooddeliverybackend.test/api/customer/profile HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer 2|JmmIb68guTlbK5PBn7x8O4ALLeLd2I613Af4TIN0daf3feb4
+
+{
+    
+}

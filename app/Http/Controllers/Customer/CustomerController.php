@@ -3,8 +3,29 @@
 namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Customer\CustomerResource;
+use App\Interfaces\CustomerRepositoryInterface;
+use Illuminate\Http\Request;
 
 class CustomerController extends Controller
 {
-    //
+    private CustomerRepositoryInterface $customerRepository;
+
+    public function __construct(CustomerRepositoryInterface $customerRepository)
+    {
+        $this->customerRepository = $customerRepository;
+    }
+
+    public function profile(Request $request)
+    {
+        // Retrieve the authenticated customer
+        $customer = $request->user();
+
+        if (! $customer) {
+            return response()->json(['message' => 'Unauthenticated Customer.'], 401);
+        }
+
+        // Return customer profile data
+        return response()->json(new CustomerResource($customer));
+    }
 }

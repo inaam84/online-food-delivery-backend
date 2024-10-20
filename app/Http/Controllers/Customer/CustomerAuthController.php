@@ -11,6 +11,8 @@ use App\Models\Customer;
 use App\Notifications\Customer\CustomerVerifyEmailNotification;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
 
 class CustomerAuthController extends Controller
 {
@@ -73,5 +75,49 @@ class CustomerAuthController extends Controller
         }
 
         return response()->json(['message' => 'Customer successfully verified. Please use Login endpoint to login.']);
+    }
+
+    public function login(Request $request)
+    {
+        $credentials = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required'],
+        ]);
+
+        // Check if the customer exists and the password is correct
+        $customer = Customer::where('email', $request->email)->first();
+        if (! $customer || ! Hash::check($credentials['password'], $customer->password)) {
+            throw ValidationException::withMessages([
+                'message' => 'Invalid login credentials',
+            ]);
+        }
+
+        // Check if the email is verified
+        if (! $customer->hasVerifiedEmail()) {
+            return response()->json(['message' => 'Please verify your email before logging in.'], 403);
+        }
+
+        // Delete any existing tokens for this customer
+        $customer->tokens()->delete();
+
+        // Generate a new Sanctum token
+        $expiresAt = now()->addHours(config('sanctum.customer_expiration', 48));
+
+        return response()->json([
+            'message' => 'Login successful',
+            'token' => $customer->createToken(config('app.name'), ['*'], $expiresAt)->plainTextToken,
+            'token_expires_at' => $expiresAt,
+        ]);
+    }
+
+    public function logout(Request $request)
+    {
+        $customer = $request->user();
+
+        $customer->tokens()->delete();
+
+        $customer->currentAccessToken()->delete();
+
+        return response()->json('You are logged out successfully.');
     }
 }
