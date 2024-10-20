@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Customer;
 
-use App\Events\Customer\CustomerRegistered;
+use App\Events\Customer\CustomerRegisteredEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Customer\CustomerRegistrationRequest;
 use App\Interfaces\CustomerRepositoryInterface;
@@ -20,7 +20,7 @@ class CustomerAuthController extends Controller
     {
         $customer = $this->customerRepository->createCustomer($request->validated());
 
-        event(new CustomerRegistered($customer));
+        event(new CustomerRegisteredEvent($customer));
 
         return response()->json(['message' => 'Registration successful. Please check your inbox and verify your email. It might take few minutes so please be patient.']);
     }

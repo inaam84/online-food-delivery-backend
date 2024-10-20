@@ -7,7 +7,7 @@ use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class CustomerRegistered
+class CustomerRegisteredEvent
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -16,8 +16,9 @@ class CustomerRegistered
     /**
      * Create a new event instance.
      */
-    public function __construct(Customer $customer)
+    public function 
+    __construct(Customer $customer)
     {
-        $this->customer = $customer;
+    $this->customer =$customer;
     }
 }

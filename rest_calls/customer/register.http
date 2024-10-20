@@ -5,7 +5,7 @@ Accept: application/json
 {
     "first_name": "John",
     "surname": "Doe",
-    "email": "johndoe20@email.com",
+    "email": "inaam@email.com",
     "landline_phone": "07415031519",
     "mobile_phone": "07415031519",
     "address_line_1": "18 Mansfield Road",
