@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('address_line_1', 70);
             $table->string('town', 70)->nullable();
             $table->string('city', 70)->nullable();
-            $table->string('county', 70);
+            $table->string('county', 70)->nullable();
             $table->string('postcode', 15);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

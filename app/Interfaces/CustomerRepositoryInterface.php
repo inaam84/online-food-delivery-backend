@@ -2,7 +2,7 @@
 
 namespace App\Interfaces;
 
-interface CustomerInterface
+interface CustomerRepositoryInterface
 {
     public function getAllCustomers();
     public function getCustomerById($customerId);
