@@ -4,7 +4,7 @@ namespace App\Interfaces;
 
 interface CustomerRepositoryInterface
 {
-    public function getAllCustomers();
+    public function getAllCustomers(array $filters = []);
 
     public function getCustomerById($customerId);
 

@@ -100,7 +100,7 @@ class CustomerLoginAndLogoutTest extends TestCase
 
         $token = $loginResponse->json('token');
 
-        $logoutResponse = $this->postJson('/api/customer/logout', [], [
+        $logoutResponse = $this->postJson('/api/logout', [], [
             'Authorization' => 'Bearer '.$token,
         ]);
 

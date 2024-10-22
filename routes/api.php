@@ -1,32 +1,36 @@
 <?php
 
-use App\Http\Controllers\Customer\CustomerAuthController;
+use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Customer\CustomerController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\DeliveryDriver\DeliveryDriverController;
+use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Route;
 
-Route::post('/customer/register', [CustomerAuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login'])
+    ->middleware(['throttle:6,1'])
+    ->name('user.login');
 
-Route::post('/customer/email/resend', [CustomerAuthController::class, 'resendVerificationEmail'])
+Route::middleware('auth:sanctum', 'auth:api')->group(function () {
+    Route::post('/user/register', [UserController::class, 'register']);
+    Route::get('/customers', [CustomerController::class, 'index']);
+    Route::get('/drivers', [DeliveryDriverController::class, 'index']);
+});
+
+Route::post('/email/resend', [AuthController::class, 'resendVerificationEmail'])
     ->name('customer.verification.resend');
 
-Route::get('customer/email/verify/{id}/{hash}', [CustomerAuthController::class, 'verify'])
+Route::get('email/verify/{id}/{hash}', [AuthController::class, 'verify'])
     ->middleware(['signed', 'throttle:6,1'])
-    ->name('customer_verification.verify');
+    ->name('user_verification.verify');
 
-Route::post('/customer/login', [CustomerAuthController::class, 'login'])
-    ->middleware(['throttle:6,1'])
-    ->name('customer.login');
+Route::group(['prefix' => 'customer'], function () {
+    require __DIR__.'/customers.php';
+});
+
+Route::group(['prefix' => 'delivery_drivers'], function () {
+    require __DIR__.'/delivery_drivers.php';
+});
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::get('/customer/profile', [CustomerController::class, 'profile']);
-    Route::post('/customer/logout', [CustomerAuthController::class, 'logout']);
-    Route::match(['PUT', 'PATCH'], '/customer/profile/update', [CustomerController::class, 'updateProfile']);
+    Route::post('/logout', [AuthController::class, 'logout']);
 });
-
-/*
-Route::middleware('auth:sanctum')->get('/customer/profile', function (Request $request) {
-    \Log::info($request->bearerToken());  // Log the token for debugging
-    return $request->user();  // Should return the authenticated user
-});
-*/

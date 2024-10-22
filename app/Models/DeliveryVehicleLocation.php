@@ -13,6 +13,6 @@ class DeliveryVehicleLocation extends Model
 
     public function vehicle()
     {
-        return $this->belongsTo(DeliveryDriverVehicle::class);
+        return $this->belongsTo(DeliveryVehicle::class);
     }
 }

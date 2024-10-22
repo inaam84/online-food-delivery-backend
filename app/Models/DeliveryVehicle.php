@@ -5,11 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 
-class DeliveryDriverVehicle extends Model
+class DeliveryVehicle extends Model
 {
     use HasUuids;
 
     protected $table = 'delivery_driver_vehicles';
+
+    protected $fillable = [
+        'delivery_driver_id',
+        'type',
+        'registration_number',
+        'year',
+        'status',
+    ];
 
     public function driver()
     {

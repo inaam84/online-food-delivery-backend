@@ -1,5 +1,7 @@
 <?php
 
+use App\Enums\DeliveryDriverRegistrationStatus;
+use App\Enums\DeliveryDriverStatus;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -25,8 +27,10 @@ return new class extends Migration
             $table->string('postcode', 15);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->enum('registration_status', ['PENDING_APPROVAL', 'REGISTERED', 'DISAPPROVED'])->default('PENDING_APPROVAL');
-            $table->enum('status', ['WORKING', 'NOT_WORKING'])->default('WORKING');
+            $table->enum('registration_status', array_column(DeliveryDriverRegistrationStatus::cases(), 'value'))
+                ->default(DeliveryDriverRegistrationStatus::PENDING_APPROVAL->value);
+            $table->enum('status', array_column(DeliveryDriverStatus::cases(), 'value'))
+                ->default(DeliveryDriverStatus::WORKING->value);
             $table->rememberToken();
             $table->timestamps();
         });

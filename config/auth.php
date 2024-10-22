@@ -46,14 +46,14 @@ return [
             'provider' => 'users',
         ],
 
-        'customer' => [
-            'driver' => 'session',
-            'provider' => 'customers',
-        ],
-
         'customer-api' => [
             'driver' => 'sanctum',
             'provider' => 'customers',
+        ],
+
+        'delivery-driver-api' => [
+            'driver' => 'sanctum',
+            'provider' => 'delivery_drivers',
         ],
     ],
 
@@ -83,6 +83,11 @@ return [
         'customers' => [
             'driver' => 'eloquent',
             'model' => App\Models\Customer::class,
+        ],
+
+        'delivery_drivers' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\DeliveryDriver::class,
         ],
     ],
 
@@ -115,6 +120,12 @@ return [
         'customers' => [
             'provider' => 'customers',
             'table' => env('customers_password_reset_tokens'),
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'delivery_drivers' => [
+            'provider' => 'delivery_drivers',
+            'table' => env('delivery_drivers_password_reset_tokens'),
             'expire' => 60,
             'throttle' => 60,
         ],

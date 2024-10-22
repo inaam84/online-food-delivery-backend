@@ -1,26 +1,25 @@
 <?php
 
-namespace App\Notifications\Customer;
+namespace App\Notifications;
 
-use App\Models\Customer;
 use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\URL;
 
-class CustomerVerifyEmailNotification extends Notification
+class VerifyEmailNotification extends Notification
 {
     use Queueable;
 
-    public Customer $customer;
+    public $entity;
 
     /**
      * Create a new notification instance.
      */
-    public function __construct(Customer $customer)
+    public function __construct($entity)
     {
-        $this->customer = $customer;
+        $this->entity = $entity;
     }
 
     /**
@@ -41,16 +40,25 @@ class CustomerVerifyEmailNotification extends Notification
         return (new MailMessage)
             ->subject('Verify Your Email Address')
             ->line('Please click the button below to verify your email address.')
-            ->action('Verify Email', $this->verificationUrl($this->customer))
+            ->action('Verify Email', $this->verificationUrl($this->entity))
             ->line('Thank you for using our application!');
     }
 
     protected function verificationUrl()
     {
+        $route = '';
+        if ($this->entity instanceof \App\Models\Customer) {
+            $route = 'customer_verification.verify';
+        } elseif ($this->entity instanceof \App\Models\DeliveryDriver) {
+            $route = 'driver_verification.verify';
+        } elseif ($this->entity instanceof \App\Models\User) {
+            $route = 'user_verification.verify';
+        }
+
         return URL::temporarySignedRoute(
-            'customer_verification.verify',
+            $route,
             Carbon::now()->addMinutes(60),
-            ['id' => $this->customer->getKey(), 'hash' => sha1($this->customer->getEmailForVerification())]
+            ['id' => $this->entity->getKey(), 'hash' => sha1($this->entity->getEmailForVerification())]
         );
     }
 

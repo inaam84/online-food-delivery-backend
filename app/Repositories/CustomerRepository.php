@@ -7,9 +7,26 @@ use App\Models\Customer;
 
 class CustomerRepository implements CustomerRepositoryInterface
 {
-    public function getAllCustomers()
+    public function getAllCustomers(array $filters = [])
     {
-        return Customer::all();
+        $page = 50;
+
+        $query = Customer::query();
+        if (array_key_exists('first_name', $filters)) {
+            $query->where('first_name', 'LIKE', '%'.$filters['first_name'].'%');
+        }
+        if (array_key_exists('surname', $filters)) {
+            $query->where('surname', 'LIKE', '%'.$filters['surname'].'%');
+        }
+        if (array_key_exists('email', $filters)) {
+            $query->where('email', $filters['email']);
+        }
+        if (array_key_exists('page', $filters)) {
+            $page = $filters['page'];
+        }
+        $page = $page > 50 ? 50 : $page;
+
+        return $query->paginate($page);
     }
 
     public function getCustomerById($customerId)

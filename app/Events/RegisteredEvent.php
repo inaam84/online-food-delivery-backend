@@ -1,23 +1,22 @@
 <?php
 
-namespace App\Events\Customer;
+namespace App\Events;
 
-use App\Models\Customer;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class CustomerVerifiedEvent
+class RegisteredEvent
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public Customer $customer;
+    public $entity;
 
     /**
      * Create a new event instance.
      */
-    public function __construct(Customer $customer)
+    public function __construct($entity)
     {
-        $this->customer = $customer;
+        $this->entity = $entity;
     }
 }

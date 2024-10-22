@@ -1,0 +1,8 @@
+GET http://onlinefooddeliverybackend.test/api/customers?surname=&email=&page=0 HTTP/1.1
+content-type: application/json
+Accept: application/json
+Authorization: Bearer 17|1Yi5tkr4o6CsKr6BkDuYiGykl823lKZolmx5jZXH1af05112
+
+{
+    "first_name": "Ahmad"
+}

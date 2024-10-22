@@ -17,6 +17,13 @@ class CustomerController extends Controller
         $this->customerRepository = $customerRepository;
     }
 
+    public function index(Request $request)
+    {
+        return CustomerResource::collection(
+            $this->customerRepository->getAllCustomers(array_filter($request->all()))
+        );
+    }
+
     public function profile(Request $request)
     {
         // Retrieve the authenticated customer

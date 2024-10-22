@@ -2,20 +2,23 @@
 
 namespace Tests\Feature\Customer;
 
-use App\Events\Customer\CustomerRegisteredEvent;
+use App\Events\RegisteredEvent;
 use App\Models\Customer;
-use App\Notifications\Customer\CustomerVerifyEmailNotification;
+use App\Notifications\VerifyEmailNotification;
+use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Notification;
 use Tests\TestCase;
 
 class CustomerRegistrationTest extends TestCase
 {
+    use WithFaker;
+
     /** @test */
     public function it_registers_a_customer_and_dispatches_event(): void
     {
         Event::fake(); // Mock the event dispatcher
-        $email = 'email1@example.com';
+        $email = $this->faker->freeEmail;
 
         $customerData = [
             'first_name' => 'John Doe',
@@ -36,8 +39,8 @@ class CustomerRegistrationTest extends TestCase
             'email' => $email,
         ]);
 
-        Event::assertDispatched(CustomerRegisteredEvent::class, function ($event) use ($customerData) {
-            return $event->customer->email === $customerData['email'];
+        Event::assertDispatched(RegisteredEvent::class, function ($event) use ($customerData) {
+            return $event->entity->email === $customerData['email'];
         });
 
         $response->assertJson([
@@ -49,7 +52,7 @@ class CustomerRegistrationTest extends TestCase
     public function it_sends_an_email_verification_notification_to_customer(): void
     {
         Notification::fake(); // Mock the notification system
-        $email = 'email2@example.com';
+        $email = $this->faker->freeEmail;
 
         $customerData = [
             'first_name' => 'John Doe',
@@ -68,6 +71,6 @@ class CustomerRegistrationTest extends TestCase
 
         $customer = Customer::where('email', $email)->first();
 
-        Notification::assertSentTo($customer, CustomerVerifyEmailNotification::class);
+        Notification::assertSentTo($customer, VerifyEmailNotification::class);
     }
 }
