@@ -13,4 +13,6 @@ interface DeliveryDriverRepositoryInterface
     public function createDriver(array $driverDetails);
 
     public function updateDriver($driverId, array $newDetails);
+
+    public function getDriverFile($driverId, $mediaId);
 }

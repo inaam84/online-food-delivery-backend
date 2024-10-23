@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests\DeliveryDriver;
 
+use App\Enums\DeliveryDriverStatus;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rules\Enum;
 
 class DeliveryDriverUpdateRequest extends FormRequest
 {
@@ -32,6 +34,7 @@ class DeliveryDriverUpdateRequest extends FormRequest
             'city' => 'nullable|string|max:70',
             'county' => 'nullable|string|max:70',
             'postcode' => 'required|string|max:15',
+            'status' => ['nullable', new Enum(DeliveryDriverStatus::class)],
         ];
     }
 }

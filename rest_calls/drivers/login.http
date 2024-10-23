@@ -1,8 +1,0 @@
-POST http://onlinefooddeliverybackend.test/api/delivery_drivers/login HTTP/1.1
-content-type: application/json
-Accept: application/json
-
-{
-    "email": "ahmad.ali@email.com",
-    "password": "password"
-}

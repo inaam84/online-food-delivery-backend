@@ -19,9 +19,19 @@ Route::post('/login', [DeliveryDriverAuthController::class, 'login'])
     ->name('driver.login');
 
 Route::middleware('auth:sanctum', 'auth:delivery-driver-api')->group(function () {
-    Route::get('/profile', [DeliveryDriverController::class, 'profile']);
-    Route::match(['PUT', 'PATCH'], '/profile/update', [DeliveryDriverController::class, 'updateProfile']);
+    Route::get('/profile/show', [DeliveryDriverController::class, 'profileShow'])->name('delivery_drivers.profile.show');
+    Route::match(['PUT', 'PATCH'], '/profile/update', [DeliveryDriverController::class, 'profileUpdate'])->name('delivery_drivers.profile.update');
 
-    Route::get('/vehicles', [DeliveryVehicleController::class, 'index']);
-    Route::post('/vehicle', [DeliveryVehicleController::class, 'store']);
+    Route::get('/{id}', [DeliveryDriverController::class, 'show'])->name('delivery_drivers.show');
+    Route::match(['PUT', 'PATCH'], '/{id}', [DeliveryDriverController::class, 'update'])->name('delivery_drivers.update');
+    
+    Route::post('/documents/upload', [DeliveryDriverController::class, 'uploadDocument']);
+    Route::get('/documents/{fileId}/download', [DeliveryDriverController::class, 'downloadFile']);
+    Route::get('/{id}/documents', [DeliveryDriverController::class, 'getDocumentsList']);
+
+    Route::get('/vehicles', [DeliveryVehicleController::class, 'index'])->name('delivery_vehicles.index');
+    Route::post('/vehicle', [DeliveryVehicleController::class, 'store'])->name('delivery_vehicles.store');
+    Route::get('/vehicles/{id}', [DeliveryVehicleController::class, 'show'])->name('delivery_vehicles.show');
+    Route::match(['PUT', 'PATCH'], '/vehicles/{id}', [DeliveryVehicleController::class, 'update'])->name('delivery_vehicles.update');
+    Route::delete('/vehicles/{id}', [DeliveryVehicleController::class, 'destroy'])->name('delivery_vehicles.destroy');
 });

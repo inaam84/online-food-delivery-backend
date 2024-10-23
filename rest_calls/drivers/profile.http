@@ -1,8 +1,0 @@
-GET http://onlinefooddeliverybackend.test/api/delivery_drivers/profile HTTP/1.1
-Content-Type: application/json
-Accept: application/json
-Authorization: Bearer 18|1mU9NChP9zD4nWndc67iqhPe4tYp4SzjeT4ZaVm854f041e5
-
-{
-    
-}

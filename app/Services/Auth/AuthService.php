@@ -78,7 +78,7 @@ class AuthService
         $entity->tokens()->delete();
 
         // Generate a new Sanctum token
-        $expiresAt = now()->addHours(config('sanctum.expiration', 48));
+        $expiresAt = now()->addHours(48);
 
         return response()->json([
             'message' => 'Login successful',

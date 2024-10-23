@@ -3,6 +3,7 @@
 use App\Models\Customer;
 use App\Models\DeliveryDriver;
 use App\Models\User;
+use Illuminate\Http\Response;
 
 if (! function_exists('isDeliveryDriver')) {
     function isDeliveryDriver($user)
@@ -22,5 +23,12 @@ if (! function_exists('isUser')) {
     function isUser($user)
     {
         return $user instanceof User;
+    }
+}
+
+if (! function_exists('jsonResponse')) {
+    function jsonResponse($data, $code = Response::HTTP_OK)
+    {
+        return response()->json([$data], $code);
     }
 }

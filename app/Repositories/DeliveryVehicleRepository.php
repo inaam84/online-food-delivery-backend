@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Interfaces\DeliveryVehicleRepositoryInterface;
+use App\Models\DeliveryDriver;
 use App\Models\DeliveryVehicle;
 
 class DeliveryVehicleRepository implements DeliveryVehicleRepositoryInterface
@@ -32,7 +33,10 @@ class DeliveryVehicleRepository implements DeliveryVehicleRepositoryInterface
         return $query->paginate($page);
     }
 
-    public function getVehicleById($vehicleId) {}
+    public function getVehicleById($vehicleId) 
+    {
+        return DeliveryDriver::find($vehicleId);
+    }
 
     public function deleteVehicle($vehicleId) {}
 
@@ -41,7 +45,15 @@ class DeliveryVehicleRepository implements DeliveryVehicleRepositoryInterface
         return DeliveryVehicle::create($vehicleDetails);
     }
 
-    public function updateVehicle($vehicleId, array $newDetails) {}
+    public function updateVehicle($vehicleId, array $newDetails) 
+    {
+        $vehicle = $this->getVehicleById($vehicleId);
+        if($vehicle) {
+            $vehicle->update($newDetails);
+        }
+
+        return $vehicle;
+    }
 
     public function attachDocument($vehicleId, $documentId) {}
 

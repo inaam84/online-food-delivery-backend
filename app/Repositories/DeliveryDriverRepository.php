@@ -31,7 +31,7 @@ class DeliveryDriverRepository implements DeliveryDriverRepositoryInterface
 
     public function getDriverById($driverId)
     {
-        return DeliveryDriver::findOrFail($driverId);
+        return DeliveryDriver::find($driverId);
     }
 
     public function deleteDriver($driverId)
@@ -46,7 +46,14 @@ class DeliveryDriverRepository implements DeliveryDriverRepositoryInterface
 
     public function updateDriver($driverId, array $newDetails)
     {
-        return DeliveryDriver::whereId($driverId)
-            ->update($newDetails);
+        $driver = $this->getDriverById($driverId);
+
+        return $driver->update($newDetails);
+    }
+
+    public function getDriverFile($driverId, $mediaId)
+    {
+        $driver = $this->getDriverById($driverId);
+        return $driver->media()->where('uuid', $mediaId)->first();
     }
 }
