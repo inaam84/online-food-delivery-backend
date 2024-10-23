@@ -16,18 +16,16 @@ class DeliveryDriverPolicy
 
     public function index($loggedInUser)
     {
-        return isUser( $loggedInUser );
+        return isUser($loggedInUser);
     }
 
     public function show($loggedInUser, DeliveryDriver $driver)
     {
-        if( !isDeliveryDriver( $loggedInUser ) && !isUser( $loggedInUser ) )
-        {
+        if (! isDeliveryDriver($loggedInUser) && ! isUser($loggedInUser)) {
             return false;
         }
 
-        if( isDeliveryDriver( $loggedInUser ) &&  $loggedInUser->id != $driver->id )
-        {
+        if (isDeliveryDriver($loggedInUser) && $loggedInUser->id != $driver->id) {
             return false;
         }
 
@@ -36,13 +34,11 @@ class DeliveryDriverPolicy
 
     public function update($loggedInUser, DeliveryDriver $driver)
     {
-        if( !isDeliveryDriver( $loggedInUser ) && !isUser( $loggedInUser ) )
-        {
+        if (! isDeliveryDriver($loggedInUser) && ! isUser($loggedInUser)) {
             return false;
         }
 
-        if( isDeliveryDriver( $loggedInUser ) &&  $loggedInUser->id != $driver->id )
-        {
+        if (isDeliveryDriver($loggedInUser) && $loggedInUser->id != $driver->id) {
             return false;
         }
 
@@ -51,19 +47,17 @@ class DeliveryDriverPolicy
 
     public function uploadDocument($loggedInUser)
     {
-        return isDeliveryDriver( $loggedInUser ) ||
-            isUser( $loggedInUser );
+        return isDeliveryDriver($loggedInUser) ||
+            isUser($loggedInUser);
     }
 
-    public function getDocumentsList($loggedInUser, DeliveryDriver $driver, )
+    public function getDocumentsList($loggedInUser, DeliveryDriver $driver)
     {
-        if( !isDeliveryDriver( $loggedInUser ) && !isUser( $loggedInUser ) )
-        {
+        if (! isDeliveryDriver($loggedInUser) && ! isUser($loggedInUser)) {
             return false;
         }
 
-        if( isDeliveryDriver( $loggedInUser ) && $loggedInUser->id != $driver->id )
-        {
+        if (isDeliveryDriver($loggedInUser) && $loggedInUser->id != $driver->id) {
             return false;
         }
 
@@ -72,12 +66,12 @@ class DeliveryDriverPolicy
 
     public function downloadFile($loggedInUser)
     {
-        return isDeliveryDriver( $loggedInUser ) ||
-            isUser( $loggedInUser );
+        return isDeliveryDriver($loggedInUser) ||
+            isUser($loggedInUser);
     }
 
     public function profile($loggedInUser)
     {
-        return isDeliveryDriver( $loggedInUser );
+        return isDeliveryDriver($loggedInUser);
     }
 }

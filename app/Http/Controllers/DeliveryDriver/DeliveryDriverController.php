@@ -80,8 +80,7 @@ class DeliveryDriverController extends Controller
         FileValidationService::validateFile($request->file('file'));
 
         $driver = auth()->user();
-        if( isUser(auth()->user()) )
-        {
+        if (isUser(auth()->user())) {
             $request->validate(['delivery_driver_id' => 'required|uuid']);
             $driver = $this->driverRepository->getDriverById($request->delivery_driver_id);
         }
@@ -120,10 +119,10 @@ class DeliveryDriverController extends Controller
         Gate::authorize('downloadFile', DeliveryDriver::class);
 
         $media = null;
-        if( isDeliveryDriver(auth()->user()) ) {
+        if (isDeliveryDriver(auth()->user())) {
             $media = $this->driverRepository->getDriverFile(auth()->user()->id, $fileId);
         }
-        if( isUser(auth()->user()) ) {
+        if (isUser(auth()->user())) {
             $media = $mediaRepository->getMediaByUuid($fileId);
         }
 

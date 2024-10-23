@@ -54,6 +54,7 @@ class DeliveryDriverRepository implements DeliveryDriverRepositoryInterface
     public function getDriverFile($driverId, $mediaId)
     {
         $driver = $this->getDriverById($driverId);
+
         return $driver->media()->where('uuid', $mediaId)->first();
     }
 }

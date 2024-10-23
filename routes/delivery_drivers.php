@@ -24,7 +24,7 @@ Route::middleware('auth:sanctum', 'auth:delivery-driver-api')->group(function ()
 
     Route::get('/{id}', [DeliveryDriverController::class, 'show'])->name('delivery_drivers.show');
     Route::match(['PUT', 'PATCH'], '/{id}', [DeliveryDriverController::class, 'update'])->name('delivery_drivers.update');
-    
+
     Route::post('/documents/upload', [DeliveryDriverController::class, 'uploadDocument']);
     Route::get('/documents/{fileId}/download', [DeliveryDriverController::class, 'downloadFile']);
     Route::get('/{id}/documents', [DeliveryDriverController::class, 'getDocumentsList']);

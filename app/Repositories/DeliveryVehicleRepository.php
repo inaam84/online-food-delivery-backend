@@ -33,7 +33,7 @@ class DeliveryVehicleRepository implements DeliveryVehicleRepositoryInterface
         return $query->paginate($page);
     }
 
-    public function getVehicleById($vehicleId) 
+    public function getVehicleById($vehicleId)
     {
         return DeliveryDriver::find($vehicleId);
     }
@@ -45,10 +45,10 @@ class DeliveryVehicleRepository implements DeliveryVehicleRepositoryInterface
         return DeliveryVehicle::create($vehicleDetails);
     }
 
-    public function updateVehicle($vehicleId, array $newDetails) 
+    public function updateVehicle($vehicleId, array $newDetails)
     {
         $vehicle = $this->getVehicleById($vehicleId);
-        if($vehicle) {
+        if ($vehicle) {
             $vehicle->update($newDetails);
         }
 
