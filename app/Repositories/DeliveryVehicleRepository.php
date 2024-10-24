@@ -3,7 +3,6 @@
 namespace App\Repositories;
 
 use App\Interfaces\DeliveryVehicleRepositoryInterface;
-use App\Models\DeliveryDriver;
 use App\Models\DeliveryVehicle;
 
 class DeliveryVehicleRepository implements DeliveryVehicleRepositoryInterface
@@ -35,7 +34,7 @@ class DeliveryVehicleRepository implements DeliveryVehicleRepositoryInterface
 
     public function getVehicleById($vehicleId)
     {
-        return DeliveryDriver::find($vehicleId);
+        return DeliveryVehicle::find($vehicleId);
     }
 
     public function deleteVehicle($vehicleId) {}

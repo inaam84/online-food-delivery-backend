@@ -31,6 +31,10 @@ Route::group(['prefix' => 'delivery_drivers'], function () {
     require __DIR__.'/delivery_drivers.php';
 });
 
+Route::group(['prefix' => 'delivery_vehicles'], function () {
+    require __DIR__.'/delivery_vehicles.php';
+});
+
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
 });
