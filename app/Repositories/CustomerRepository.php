@@ -31,7 +31,7 @@ class CustomerRepository implements CustomerRepositoryInterface
 
     public function getCustomerById($customerId)
     {
-        return Customer::findOrFail($customerId);
+        return Customer::find($customerId);
     }
 
     public function deleteCustomer($customerId)

@@ -18,6 +18,9 @@ Route::post('/login', [CustomerAuthController::class, 'login'])
     ->name('customer.login');
 
 Route::middleware('auth:sanctum', 'auth:customer-api')->group(function () {
-    Route::get('/profile', [CustomerController::class, 'profile']);
-    Route::match(['PUT', 'PATCH'], '/profile/update', [CustomerController::class, 'updateProfile']);
+    Route::get('/profile/show', [CustomerController::class, 'profileShow'])->name('customers.profile.show');
+    Route::match(['PUT', 'PATCH'], '/profile/update', [CustomerController::class, 'profileUpdate'])->name('customers.profile.update');
+
+    Route::get('/{id}', [CustomerController::class, 'show'])->name('customers.show');
+    Route::match(['PUT', 'PATCH'], '/{id}', [CustomerController::class, 'update'])->name('customers.update');
 });

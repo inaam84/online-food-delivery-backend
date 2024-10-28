@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Customer\CustomerController;
 use App\Http\Controllers\DeliveryDriver\DeliveryDriverController;
+use App\Http\Controllers\DeliveryDriver\DeliveryVehicleController;
 use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -13,7 +14,8 @@ Route::post('/login', [AuthController::class, 'login'])
 Route::middleware('auth:sanctum', 'auth:api')->group(function () {
     Route::post('/user/register', [UserController::class, 'register']);
     Route::get('/customers', [CustomerController::class, 'index']);
-    Route::get('/drivers', [DeliveryDriverController::class, 'index']);
+    Route::get('/delivery_drivers', [DeliveryDriverController::class, 'index']);
+    Route::get('/delivery_vehicles', [DeliveryVehicleController::class, 'index']);
 });
 
 Route::post('/email/resend', [AuthController::class, 'resendVerificationEmail'])
@@ -23,7 +25,7 @@ Route::get('email/verify/{id}/{hash}', [AuthController::class, 'verify'])
     ->middleware(['signed', 'throttle:6,1'])
     ->name('user_verification.verify');
 
-Route::group(['prefix' => 'customer'], function () {
+Route::group(['prefix' => 'customers'], function () {
     require __DIR__.'/customers.php';
 });
 

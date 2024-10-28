@@ -1,0 +1,106 @@
+POST http://onlinefooddeliverybackend.test/api/customers/register HTTP/1.1
+content-type: application/json
+Accept: application/json
+
+{
+    "first_name": "John",
+    "surname": "Doe",
+    "email": "customer@email.com",
+    "landline_phone": "01215064000",
+    "mobile_phone": "07541254789",
+    "address_line_1": "Flat 34 Lime Court, Showell Green Lane",
+    "town": "Sparkhill",
+    "city": "Birmingham",
+    "county": "West Midlands",
+    "postcode": "B11 4JT",
+    "status": "WORKING",
+    "password": "password",
+    "password_confirmation": "password"
+}
+
+###
+
+POST http://onlinefooddeliverybackend.test/api/customers/login HTTP/1.1
+content-type: application/json
+Accept: application/json
+
+{
+    "email": "customer@email.com",
+    "password": "password"
+}
+
+###
+
+GET http://onlinefooddeliverybackend.test/api/customers/profile/show HTTP/1.1
+content-type: application/json
+Accept: application/json
+Authorization: Bearer 11|skIQW3i5vrgFwfXuGfvdJpsuqkyWSRxgmnJL56Yqf86ebbc5
+
+{
+    
+}
+
+###
+
+PUT http://onlinefooddeliverybackend.test/api/customers/profile/update HTTP/1.1
+content-type: application/json
+Accept: application/json
+Authorization: Bearer 11|skIQW3i5vrgFwfXuGfvdJpsuqkyWSRxgmnJL56Yqf86ebbc5
+
+{
+    "first_name": "John",
+    "surname": "Doe",
+    "email": "John.Doe@email.com",
+    "landline_phone": "01215064000",
+    "mobile_phone": "07541254789",
+    "address_line_1": "Flat 34 Lime Court, Showell Green Lane",
+    "town": "Sparkhill",
+    "city": "Birmingham",
+    "county": "West Midlands",
+    "postcode": "B11 4JT",
+    "status": "WORKING"
+}
+
+###
+
+GET http://onlinefooddeliverybackend.test/api/customers/9d5221c9-893f-4687-87c1-9b2092321617 HTTP/1.1
+content-type: application/json
+Accept: application/json
+Authorization: Bearer 11|skIQW3i5vrgFwfXuGfvdJpsuqkyWSRxgmnJL56Yqf86ebbc5
+
+{
+    
+}
+
+###
+
+GET http://onlinefooddeliverybackend.test/api/customers HTTP/1.1
+content-type: application/json
+Accept: application/json
+Authorization: Bearer 11|skIQW3i5vrgFwfXuGfvdJpsuqkyWSRxgmnJL56Yqf86ebbc5
+
+{
+    
+}
+
+###
+
+PUT http://onlinefooddeliverybackend.test/api/customers/9d5221c9-893f-4687-87c1-9b2092321617 HTTP/1.1
+content-type: application/json
+Accept: application/json
+Authorization: Bearer 11|skIQW3i5vrgFwfXuGfvdJpsuqkyWSRxgmnJL56Yqf86ebbc5
+
+{
+    "first_name": "John",
+    "surname": "Doe",
+    "email": "John.Doe@email.com",
+    "landline_phone": "01215064000",
+    "mobile_phone": "07541254789",
+    "address_line_1": "Flat 34 Lime Court, Showell Green Lane",
+    "town": "Sparkhill",
+    "city": "Birmingham",
+    "county": "West Midlands",
+    "postcode": "B11 4JT",
+    "status": "WORKING"
+}
+
