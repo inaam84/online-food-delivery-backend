@@ -55,6 +55,11 @@ return [
             'driver' => 'sanctum',
             'provider' => 'delivery_drivers',
         ],
+
+        'vendor-api' => [
+            'driver' => 'sanctum',
+            'provider' => 'vendors',
+        ],
     ],
 
     /*
@@ -88,6 +93,11 @@ return [
         'delivery_drivers' => [
             'driver' => 'eloquent',
             'model' => App\Models\DeliveryDriver::class,
+        ],
+
+        'vendors' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Vendor::class,
         ],
     ],
 
@@ -126,6 +136,12 @@ return [
         'delivery_drivers' => [
             'provider' => 'delivery_drivers',
             'table' => env('delivery_drivers_password_reset_tokens'),
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'vendors' => [
+            'provider' => 'vendors',
+            'table' => env('vendors_password_reset_tokens'),
             'expire' => 60,
             'throttle' => 60,
         ],

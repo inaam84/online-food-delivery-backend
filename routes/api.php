@@ -5,6 +5,7 @@ use App\Http\Controllers\Customer\CustomerController;
 use App\Http\Controllers\DeliveryDriver\DeliveryDriverController;
 use App\Http\Controllers\DeliveryDriver\DeliveryVehicleController;
 use App\Http\Controllers\User\UserController;
+use App\Http\Controllers\Vendor\VendorController;
 use Illuminate\Support\Facades\Route;
 
 Route::post('/login', [AuthController::class, 'login'])
@@ -16,6 +17,7 @@ Route::middleware('auth:sanctum', 'auth:api')->group(function () {
     Route::get('/customers', [CustomerController::class, 'index']);
     Route::get('/delivery_drivers', [DeliveryDriverController::class, 'index']);
     Route::get('/delivery_vehicles', [DeliveryVehicleController::class, 'index']);
+    Route::get('/vendors', [VendorController::class, 'index']);
 });
 
 Route::post('/email/resend', [AuthController::class, 'resendVerificationEmail'])
@@ -35,6 +37,10 @@ Route::group(['prefix' => 'delivery_drivers'], function () {
 
 Route::group(['prefix' => 'delivery_vehicles'], function () {
     require __DIR__.'/delivery_vehicles.php';
+});
+
+Route::group(['prefix' => 'vendors'], function () {
+    require __DIR__.'/vendors.php';
 });
 
 Route::middleware('auth:sanctum')->group(function () {

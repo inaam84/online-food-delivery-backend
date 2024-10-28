@@ -53,6 +53,8 @@ class VerifyEmailNotification extends Notification
             $route = 'driver_verification.verify';
         } elseif ($this->entity instanceof \App\Models\User) {
             $route = 'user_verification.verify';
+        } elseif ($this->entity instanceof \App\Models\Vendor) {
+            $route = 'vendor_verification.verify';
         }
 
         return URL::temporarySignedRoute(
