@@ -44,7 +44,7 @@ class AuthController extends Controller
 
         $token = PersonalAccessToken::where('refresh_token', $request->refresh_token)->first();
 
-        if(!$token || $token->refresh_token_time < now()) {
+        if (! $token || $token->refresh_token_time < now()) {
             return jsonResponse([
                 'message' => 'Invalid or expired refresh token. Please login again',
             ], Response::HTTP_UNAUTHORIZED);
