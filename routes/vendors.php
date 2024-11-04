@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Vendor\VendorAuthController;
 use App\Http\Controllers\Vendor\VendorController;
+use App\Http\Controllers\Vendor\VendorFoodController;
+use App\Http\Controllers\Vendor\VendorMenuController;
 use Illuminate\Support\Facades\Route;
 
 Route::post('/register', [VendorAuthController::class, 'register']);
@@ -23,4 +25,7 @@ Route::middleware('auth:sanctum', 'auth:vendor-api')->group(function () {
 
     Route::get('/{id}', [VendorController::class, 'show'])->name('vendors.show');
     Route::match(['PUT', 'PATCH'], '/{id}', [VendorController::class, 'update'])->name('vendors.update');
+
+    Route::apiResource('menus', VendorMenuController::class);
+    Route::apiResource('foods', VendorFoodController::class);
 });

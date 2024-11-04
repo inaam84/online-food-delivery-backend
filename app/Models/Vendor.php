@@ -59,4 +59,14 @@ class Vendor extends Authenticatable implements MustVerifyEmail
     {
         return $verified ? $query->whereNotNull('email_verified_at') : $query->whereNull('email_verified_at');
     }
+
+    public function menus()
+    {
+        return $this->hasMany(Menu::class);
+    }
+
+    public function foods()
+    {
+        return $this->hasMany(Food::class);
+    }
 }

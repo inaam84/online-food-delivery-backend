@@ -65,6 +65,20 @@ Authorization: Bearer 13|p7ID9kum0WK6DFDqRDDiESSej7R27pyZSU7ooXsO34a2f54e
 
 ###
 
+PUT http://onlinefooddeliverybackend.test/api/vendors/profile/update HTTP/1.1
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+Accept: application/json
+Authorization: Bearer 13|p7ID9kum0WK6DFDqRDDiESSej7R27pyZSU7ooXsO34a2f54e
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="logo"; filename="1.png"
+Content-Type: image/png
+
+< ./1.png
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
+
+###
+
 GET http://onlinefooddeliverybackend.test/api/vendors/9d5221c9-893f-4687-87c1-9b2092321617 HTTP/1.1
 content-type: application/json
 Accept: application/json

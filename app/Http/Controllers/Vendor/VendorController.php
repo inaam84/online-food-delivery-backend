@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Vendor;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Vendor\VendorUpdateRequest;
 use App\Http\Resources\Vendor\VendorResource;
+use App\Interfaces\MediaRepositoryInterface;
 use App\Interfaces\VendorRepositoryInterface;
 use App\Models\Vendor;
+use App\Services\Validation\FileValidationService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Gate;
@@ -36,11 +38,17 @@ class VendorController extends Controller
         return response()->json(new VendorResource(auth()->user()));
     }
 
-    public function profileUpdate(VendorUpdateRequest $request)
+    public function profileUpdate(VendorUpdateRequest $request, MediaRepositoryInterface $mediaRepository)
     {
         Gate::authorize('profile', Vendor::class);
 
         $this->vendorRepository->updateVendor(auth()->user()->id, $request->validated());
+
+        // if($request->hasFile('logo'))
+
+        FileValidationService::validateVendorLogo($request->file('logo'));
+
+        $mediaRepository->uploadMediaFromRequest(auth()->user(), 'logo', 'vendor_logos');
 
         return jsonResponse(['message' => __('Profile has been updated successfully.')]);
     }

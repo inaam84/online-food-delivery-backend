@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\VendorStatus;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -27,6 +28,8 @@ return new class extends Migration
             $table->string('postcode', 15);
             $table->string('landline_phone', 50)->nullable();
             $table->string('mobile_phone', 50)->nullable();
+            $table->enum('status', array_column(VendorStatus::cases(), 'value'))
+                ->default(VendorStatus::ACTIVE->value);
             $table->rememberToken();
             $table->timestamps();
         });
