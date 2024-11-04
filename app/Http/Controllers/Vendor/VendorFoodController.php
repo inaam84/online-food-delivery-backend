@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\Vendor\VendorFoodResource;
 use App\Interfaces\VendorFoodRepositoryInterface;
 use App\Models\Food;
-use App\Models\Menu;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Gate;
@@ -27,7 +26,7 @@ class VendorFoodController extends Controller
     {
         Gate::authorize('index', Food::class);
 
-        if ( isVendor(auth()->user()) ) {
+        if (isVendor(auth()->user())) {
             return VendorFoodResource::collection(
                 auth()->user()->foods
             );
