@@ -3,7 +3,7 @@
 use App\Http\Controllers\DeliveryDriver\DeliveryVehicleController;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware('auth:sanctum', 'auth:delivery-driver-api')->group(function () {
+Route::middleware(['auth:sanctum', 'auth:delivery-driver-api'])->group(function () {
     Route::get('/', [DeliveryVehicleController::class, 'index'])->name('delivery_vehicles.index');
     Route::post('/', [DeliveryVehicleController::class, 'store'])->name('delivery_vehicles.store');
     Route::get('/{id}', [DeliveryVehicleController::class, 'show'])->name('delivery_vehicles.show');

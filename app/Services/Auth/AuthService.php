@@ -7,6 +7,8 @@ use Illuminate\Auth\Events\Verified;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Str;
+use Laravel\Sanctum\PersonalAccessToken;
 
 class AuthService
 {
@@ -79,11 +81,25 @@ class AuthService
 
         // Generate a new Sanctum token
         $expiresAt = now()->addHours(48);
+        $accessToken = $entity->createToken(config('app.name'), ['*'], $expiresAt)->plainTextToken;
+
+        $refreshToken = Str::random(255);
+        $refreshTokenExipresAt = now()->addDays(30);
+
+        $entity->tokens()
+            ->where('name', config('app.name'))
+            ->where('expires_at', $expiresAt)
+            ->update([
+                'refresh_token' => $refreshToken,
+                'refresh_token_expires_at' => $refreshTokenExipresAt,
+            ]);
 
         return response()->json([
             'message' => 'Login successful',
-            'token' => $entity->createToken(config('app.name'), ['*'], $expiresAt)->plainTextToken,
+            'token' => $accessToken,
             'token_expires_at' => $expiresAt,
+            'refresh_token' => $refreshToken,
+            'refresh_token_expires_at' => $refreshTokenExipresAt,
         ]);
     }
 
@@ -96,5 +112,16 @@ class AuthService
         $entity->currentAccessToken()->delete();
 
         return response()->json(['message' => 'You are logged out successfully.']);
+    }
+
+    public function refreshToken(PersonalAccessToken $token)
+    {
+        $expiresAt = now()->addHours(48);
+        $newAccessToken = $token->tokenable->createToken(config('app.name'), ['*'], $expiresAt);
+
+        return response()->json([
+            'token' => $newAccessToken,
+            'token_expires_at' => $expiresAt,
+        ]);
     }
 }

@@ -17,7 +17,7 @@ Route::post('/login', [DeliveryDriverAuthController::class, 'login'])
     ->middleware(['throttle:6,1'])
     ->name('driver.login');
 
-Route::middleware('auth:sanctum', 'auth:delivery-driver-api')->group(function () {
+Route::middleware(['auth:sanctum', 'auth:delivery-driver-api'])->group(function () {
     Route::get('/profile/show', [DeliveryDriverController::class, 'profileShow'])->name('delivery_drivers.profile.show');
     Route::match(['PUT', 'PATCH'], '/profile/update', [DeliveryDriverController::class, 'profileUpdate'])->name('delivery_drivers.profile.update');
 

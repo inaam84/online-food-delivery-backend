@@ -19,7 +19,7 @@ Route::post('/login', [VendorAuthController::class, 'login'])
     ->middleware(['throttle:6,1'])
     ->name('vendor.login');
 
-Route::middleware('auth:sanctum', 'auth:vendor-api')->group(function () {
+Route::middleware(['auth:sanctum', 'auth:vendor-api'])->group(function () {
     Route::get('/profile/show', [VendorController::class, 'profileShow'])->name('vendors.profile.show');
     Route::match(['PUT', 'PATCH'], '/profile/update', [VendorController::class, 'profileUpdate'])->name('vendors.profile.update');
 

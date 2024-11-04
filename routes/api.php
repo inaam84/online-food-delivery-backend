@@ -27,6 +27,8 @@ Route::get('email/verify/{id}/{hash}', [AuthController::class, 'verify'])
     ->middleware(['signed', 'throttle:6,1'])
     ->name('user_verification.verify');
 
+Route::get('/refresh-token', [AuthController::class, 'refreshToken']);
+
 Route::group(['prefix' => 'customers'], function () {
     require __DIR__.'/customers.php';
 });
