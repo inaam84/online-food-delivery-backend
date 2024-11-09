@@ -120,7 +120,7 @@ class AuthService
         $newAccessToken = $token->tokenable->createToken(config('app.name'), ['*'], $expiresAt);
 
         return response()->json([
-            'token' => $newAccessToken,
+            'token' => $newAccessToken->plainTextToken,
             'token_expires_at' => $expiresAt,
         ]);
     }

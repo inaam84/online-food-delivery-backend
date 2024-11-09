@@ -31,6 +31,16 @@ Accept: application/json
 
 ###
 
+POST http://onlinefooddeliverybackend.test/api/refresh-token HTTP/1.1
+content-type: application/json
+Accept: application/json
+
+{
+    "refresh_token": "BwsTvpn0GcpPTnGhkimgDabtHgGTmbfx5dMzD7FcP7IRhjx4LIc4l15cennj0HQV7x028C8nC3QonaCsdwQ0sAtNyvValabVg1RxqsqwjGrNl8kL9CVXOaWtzaJUr1NIaAkdJBbxWu5sTV89JrdpqVvM8XrpIJPdMlTyKjenR3wflBF1CoO0j09vFnKTpWGkJlH2sNsDHaBxGgDyuwyqxgjlmSosxl7awXTajAcBLLbr6zF5uaJewex6h3ez2gi"
+}
+
+###
+
 GET http://onlinefooddeliverybackend.test/api/delivery_drivers/profile/show HTTP/1.1
 content-type: application/json
 Accept: application/json
