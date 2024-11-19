@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\DeliveryDriver;
 
+use App\Enums\DeliveryDriverRegistrationStatus;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DeliveryDriver\DeliveryDriverUpdateRequest;
 use App\Http\Resources\DeliveryDriver\DriverResource;
@@ -12,6 +13,7 @@ use App\Services\Validation\FileValidationService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Validation\Rules\Enum;
 
 class DeliveryDriverController extends Controller
 {
@@ -71,6 +73,26 @@ class DeliveryDriverController extends Controller
         $this->driverRepository->updateDriver($driver->id, $request->validated());
 
         return jsonResponse(['message' => __('Profile has been updated successfully.')]);
+    }
+
+    public function updateRegistrationStatus($id, Request $request)
+    {
+        $driver = $this->driverRepository->getDriverById($id);
+        if (! $driver) {
+            return jsonResponse(['message' => __('Record not found.')], Response::HTTP_NOT_FOUND);
+        }
+
+        $request->validate([
+            'registration_status' => ['required', new Enum(DeliveryDriverRegistrationStatus::class)],
+        ]);
+
+        Gate::authorize('update', $driver);
+
+        $this->driverRepository->updateDriver($driver->id, [
+            'registration_status' => $request->registration_status,
+        ]);
+
+        return jsonResponse(['message' => __('Driver status has been updated successfully.')]);
     }
 
     public function uploadDocument(Request $request, MediaRepositoryInterface $mediaRepository)

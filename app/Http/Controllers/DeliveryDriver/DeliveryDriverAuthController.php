@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\DeliveryDriver;
 
+use App\Enums\DeliveryDriverRegistrationStatus;
 use App\Events\RegisteredEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DeliveryDriver\DeliveryDriverRegistrationRequest;
@@ -24,7 +25,9 @@ class DeliveryDriverAuthController extends Controller
 
     public function register(DeliveryDriverRegistrationRequest $request)
     {
-        $driver = $this->driverRepository->createDriver($request->validated());
+        $driverData = $request->validated();
+        $driverData['registration_status'] = DeliveryDriverRegistrationStatus::PENDING_APPROVAL;
+        $driver = $this->driverRepository->createDriver($driverData);
 
         event(new RegisteredEvent($driver));
 

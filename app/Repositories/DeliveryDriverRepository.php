@@ -12,6 +12,9 @@ class DeliveryDriverRepository implements DeliveryDriverRepositoryInterface
         $page = 50;
 
         $query = DeliveryDriver::query();
+        if (array_key_exists('id', $filters)) {
+            $query->where('id', $filters['id']);
+        }
         if (array_key_exists('first_name', $filters)) {
             $query->where('first_name', 'LIKE', '%'.$filters['first_name'].'%');
         }
