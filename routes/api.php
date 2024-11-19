@@ -16,7 +16,8 @@ Route::middleware('auth:sanctum', 'auth:api')->group(function () {
     Route::post('/user/register', [UserController::class, 'register']);
     Route::get('/customers', [CustomerController::class, 'index']);
     Route::get('/delivery_drivers', [DeliveryDriverController::class, 'index']);
-    Route::match(['PUT', 'PATCH'], '/delivery_drivers/{id}/updateRegistrationStatus', [DeliveryDriverController::class, 'updateRegistrationStatus'])->name('delivery_drivers.updateRegistrationStatus');
+    Route::match(['PUT', 'PATCH'], '/delivery_drivers/{id}/updateRegistrationStatus', [DeliveryDriverController::class, 'updateRegistrationStatus'])
+        ->name('delivery_drivers.updateRegistrationStatus');
     Route::get('/delivery_vehicles', [DeliveryVehicleController::class, 'index']);
     Route::get('/vendors', [VendorController::class, 'index']);
 });

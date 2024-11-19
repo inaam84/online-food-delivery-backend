@@ -9,6 +9,7 @@ use App\Http\Resources\DeliveryDriver\DriverResource;
 use App\Interfaces\DeliveryDriverRepositoryInterface;
 use App\Interfaces\MediaRepositoryInterface;
 use App\Models\DeliveryDriver;
+use App\Notifications\DriverRegistrationStatusUpdated;
 use App\Services\Validation\FileValidationService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -91,6 +92,8 @@ class DeliveryDriverController extends Controller
         $this->driverRepository->updateDriver($driver->id, [
             'registration_status' => $request->registration_status,
         ]);
+
+        $driver->notify(new DriverRegistrationStatusUpdated($request->registration_status));
 
         return jsonResponse(['message' => __('Driver status has been updated successfully.')]);
     }

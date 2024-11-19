@@ -24,6 +24,9 @@ class DeliveryDriverRepository implements DeliveryDriverRepositoryInterface
         if (array_key_exists('email', $filters)) {
             $query->where('email', $filters['email']);
         }
+        if (array_key_exists('registration_status', $filters)) {
+            $query->where('registration_status', $filters['registration_status']);
+        }
         if (array_key_exists('page', $filters)) {
             $page = $filters['page'];
         }
