@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Resources\Vendor;
+namespace App\Http\Resources\Food;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class VendorFoodCollection extends ResourceCollection
+class FoodCollection extends ResourceCollection
 {
     /**
      * Transform the resource collection into an array.

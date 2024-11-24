@@ -5,17 +5,17 @@ namespace App\Providers;
 use App\Interfaces\CustomerRepositoryInterface;
 use App\Interfaces\DeliveryDriverRepositoryInterface;
 use App\Interfaces\DeliveryVehicleRepositoryInterface;
+use App\Interfaces\FoodRepositoryInterface;
 use App\Interfaces\MediaRepositoryInterface;
 use App\Interfaces\UserRepositoryInterface;
-use App\Interfaces\VendorFoodRepositoryInterface;
 use App\Interfaces\VendorMenuRepositoryInterface;
 use App\Interfaces\VendorRepositoryInterface;
 use App\Repositories\CustomerRepository;
 use App\Repositories\DeliveryDriverRepository;
 use App\Repositories\DeliveryVehicleRepository;
+use App\Repositories\FoodRepository;
 use App\Repositories\MediaRepository;
 use App\Repositories\UserRepository;
-use App\Repositories\VendorFoodRepository;
 use App\Repositories\VendorMenuRepository;
 use App\Repositories\VendorRepository;
 use Illuminate\Support\ServiceProvider;
@@ -34,7 +34,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(MediaRepositoryInterface::class, MediaRepository::class);
         $this->app->bind(VendorRepositoryInterface::class, VendorRepository::class);
         $this->app->bind(VendorMenuRepositoryInterface::class, VendorMenuRepository::class);
-        $this->app->bind(VendorFoodRepositoryInterface::class, VendorFoodRepository::class);
+        $this->app->bind(FoodRepositoryInterface::class, FoodRepository::class);
     }
 
     /**

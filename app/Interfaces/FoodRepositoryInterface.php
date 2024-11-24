@@ -2,7 +2,7 @@
 
 namespace App\Interfaces;
 
-interface VendorFoodRepositoryInterface
+interface FoodRepositoryInterface
 {
     public function getAllFoods();
 

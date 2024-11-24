@@ -13,12 +13,12 @@ class Food extends Model
 
     protected $fillable = [
         'vendor_id',
-        'menu_id',
+        'category_id',
         'name',
         'description',
         'price',
         'image',
-        'is_available',
+        'status',
     ];
 
     protected function casts(): array
@@ -28,13 +28,18 @@ class Food extends Model
         ];
     }
 
-    public function menu()
-    {
-        return $this->belongsTo(Menu::class);
-    }
-
     public function vendor()
     {
         return $this->belongsTo(Vendor::class);
+    }
+
+    public function category()
+    {
+        return $this->hasOne(FoodCategory::class);
+    }
+
+    public function tags()
+    {
+        return $this->hasMany(FoodTag::class);
     }
 }

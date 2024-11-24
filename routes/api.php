@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Customer\CustomerController;
 use App\Http\Controllers\DeliveryDriver\DeliveryDriverController;
 use App\Http\Controllers\DeliveryDriver\DeliveryVehicleController;
+use App\Http\Controllers\Food\FoodController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Vendor\VendorController;
 use Illuminate\Support\Facades\Route;
@@ -49,4 +50,8 @@ Route::group(['prefix' => 'vendors'], function () {
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
+});
+
+Route::middleware(['auth:sanctum', 'auth:vendor-api'])->group(function () {
+    Route::apiResource('foods', FoodController::class);
 });

@@ -2,10 +2,10 @@
 
 namespace App\Repositories;
 
-use App\Interfaces\VendorFoodRepositoryInterface;
+use App\Interfaces\FoodRepositoryInterface;
 use App\Models\Food;
 
-class VendorFoodRepository implements VendorFoodRepositoryInterface
+class FoodRepository implements FoodRepositoryInterface
 {
     public function getAllFoods()
     {
@@ -14,7 +14,7 @@ class VendorFoodRepository implements VendorFoodRepositoryInterface
 
     public function getFoodById($foodId)
     {
-        Food::findOrFail($foodId);
+        return Food::find($foodId);
     }
 
     public function createFood(array $foodDetails)
@@ -24,12 +24,18 @@ class VendorFoodRepository implements VendorFoodRepositoryInterface
 
     public function deleteFood($foodId)
     {
-        Food::destroy($foodId);
+        $food = $this->getFoodById($foodId);
+
+        return ! is_null($food) ? $food->delete() : 0;
     }
 
     public function updateFood($foodId, array $newDetails)
     {
-        return Food::whereId($foodId)
-            ->update($newDetails);
+        $food = $this->getFoodById($foodId);
+        if ($food) {
+            $food->update($newDetails);
+        }
+
+        return $food;
     }
 }

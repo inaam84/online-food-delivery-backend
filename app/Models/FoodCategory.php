@@ -5,24 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Menu extends Model
+class FoodCategory extends Model
 {
     use HasFactory;
 
-    protected $table = 'menus';
+    protected $table = 'food_categories';
 
     protected $fillable = [
-        'vendor_id',
+        'id',
         'name',
         'description',
-        'price',
-        'category',
     ];
-
-    public function vendor()
-    {
-        return $this->belongsTo(Vendor::class);
-    }
 
     public function foods()
     {
