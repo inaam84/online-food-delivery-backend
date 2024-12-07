@@ -66,9 +66,7 @@ class AuthService
 
         $entity = $entityClass::where('email', $request->email)->first();
         if (! $entity || ! Hash::check($credentials['password'], $entity->password)) {
-            throw ValidationException::withMessages([
-                'message' => 'Invalid login credentials',
-            ]);
+            return response()->json(['message' => __('Invalid login credentials')], 401);
         }
 
         // Check if the email is verified
